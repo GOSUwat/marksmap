@@ -1,24 +1,29 @@
-using System.Security.Cryptography;
-using WebApplication1;
+using Interfaces;
+using Services;
 
 var builder = WebApplication.CreateBuilder();
+
+builder.Services.AddControllers();
+builder.Services.AddSingleton<NoDBMakerList>();
+builder.Services.AddScoped<IMapInterface, MapService>();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
+
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+//app.UseRouting();
+app.MapControllers();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-app.MapPost("/api/post/mark",(MarkerData markerData) =>
-{
-    markerData.marker_guid = Guid.NewGuid();
-    Console.WriteLine(markerData.lat +" " + markerData.lng +" " + markerData.user_id + " " + markerData.descr + " " + markerData.marker_guid);
-    using (DBProvider db = new DBProvider())
-    {
-        db.Markers.Add(markerData);
-        db.SaveChanges();
-    }
-    return markerData.marker_guid;
-});
-app.MapGet("/api/get/marks", () =>
+/*app.MapGet("/api/get/marks", () =>
 {
     using (DBProvider db = new DBProvider())
     {
@@ -55,7 +60,7 @@ app.Map("/delete", () =>
     }
     return Results.Accepted();
     
-});
+});*/
 
 
 app.Run();
