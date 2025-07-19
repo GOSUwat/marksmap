@@ -16,6 +16,18 @@ public class NoDBMakerList
         await Task.Delay(0);
         return markers;
     }
+
+    public async Task<bool> RemoveValue(Guid guid)
+    {
+        await Task.Delay(0);
+        MarkerData? removedMarker = markers.FirstOrDefault(x => x.marker_guid == guid);
+        if (removedMarker != null)
+        {
+            markers.Remove(removedMarker);
+            return true;
+        }
+        return false;
+    } 
 }
 
 [Table("markers")]

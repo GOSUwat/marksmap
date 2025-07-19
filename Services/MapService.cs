@@ -12,14 +12,14 @@ namespace Services
         public async Task<Guid> CreateMarkerAsync(MarkerData data)
         {
             data.marker_guid = Guid.NewGuid();
-            Console.WriteLine(data.lat + " " + data.lng + " " + data.user_id + " " + data.descr + " " + data.marker_guid);
+            Console.WriteLine(data.marker_guid);
             await _markers.AddValue(data);
             return data.marker_guid;
         }
 
-        public Task<bool> DeleteMarkerAsync(int id)
+        public async Task<bool> DeleteMarkerAsync(Guid guid)
         {
-            throw new NotImplementedException();
+            return await _markers.RemoveValue(guid);
         }
 
         public async Task<List<MarkerData>> GetMarksAsync()
@@ -28,11 +28,6 @@ namespace Services
         }
 
         public Task<bool> UpdateMarkerAsync(int id, MarkerData data)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<int> IMapInterface.CreateMarkerAsync(MarkerData data)
         {
             throw new NotImplementedException();
         }

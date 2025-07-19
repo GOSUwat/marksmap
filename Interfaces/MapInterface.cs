@@ -4,9 +4,9 @@ namespace Interfaces
     {
         public Task<List<MarkerData>> GetMarksAsync();
 
-        public Task<int> CreateMarkerAsync(MarkerData data);
+        public Task<Guid> CreateMarkerAsync(MarkerData data);
 
-        public Task<bool> DeleteMarkerAsync(int id);
+        public Task<bool> DeleteMarkerAsync(Guid guid);
 
         public Task<bool> UpdateMarkerAsync(int id, MarkerData data);
     }

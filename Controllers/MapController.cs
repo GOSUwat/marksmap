@@ -24,5 +24,17 @@ namespace Controllers.MapControllers
             }
             return markers;
         }
+
+        [HttpDelete("{guid}")]
+        public async Task<ActionResult> RemoveMarker(Guid guid)
+        {
+            return Ok(await _service.DeleteMarkerAsync(guid));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Guid>> CreateMarker(MarkerData marker)
+        {
+            return await _service.CreateMarkerAsync(marker);
+        }
     }
 }
