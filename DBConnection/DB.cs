@@ -14,6 +14,11 @@ namespace DBConnection
             throw new NotImplementedException();
         }
 
+        public Task<Dictionary<Guid, MarkerData>> GetValues()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<List<MarkerData>> GetValuesList()
         {
             throw new NotImplementedException();

@@ -1,10 +1,12 @@
+using DBConnection;
 using Interfaces;
 using Services;
 
 var builder = WebApplication.CreateBuilder();
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<IMapInterface, MapService>();
+builder.Services.AddScoped<IMapInterface<MarkerData, Guid>, MapService>();
+builder.Services.AddSingleton<IDataInterface<MarkerData, Guid>, DBFake>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

@@ -2,7 +2,7 @@ using Interfaces;
 
 namespace Services
 {
-    public class MapService : IMapInterface
+    public class MapService : IMapInterface<MarkerData,Guid>
     {
         private readonly IDataInterface<MarkerData,Guid> _markers;
         public MapService(IDataInterface<MarkerData, Guid> markers)
@@ -22,14 +22,14 @@ namespace Services
             return await _markers.RemoveValue(guid);
         }
 
-        public async Task<List<MarkerData>> GetMarksAsync()
+        public async Task<Dictionary<Guid,MarkerData>> GetMarksAsync()
         {
-            return await _markers.GetValuesList();
+            return await _markers.GetValues();
         }
 
-        public async Task<bool> UpdateMarkerAsync(Guid guid, MarkerData data)
+        public Task<bool> UpdateMarkerAsync(MarkerData data)
         {
-            
+            return _markers.UpdateValue(data);
         }
     }
 }

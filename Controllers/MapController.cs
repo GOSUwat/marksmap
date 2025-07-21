@@ -7,17 +7,17 @@ namespace Controllers.MapControllers
     [Route("api/[controller]")]
     public class MapController : ControllerBase
     {
-        private readonly IMapInterface _service;
+        private readonly IMapInterface<MarkerData,Guid> _service;
 
-        public MapController(IMapInterface controller)
+        public MapController(IMapInterface<MarkerData,Guid> controller)
         {
             _service = controller;
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<List<MarkerData>>> GetAll()
+        public async Task<ActionResult<Dictionary<Guid,MarkerData>>> GetAll()
         {
-            List<MarkerData> markers = await _service.GetMarksAsync();
+            Dictionary<Guid,MarkerData> markers = await _service.GetMarksAsync();
             if (markers.Count == 0)
             {
                 return NotFound();
@@ -28,7 +28,12 @@ namespace Controllers.MapControllers
         [HttpDelete("Remove/{guid}")]
         public async Task<ActionResult> RemoveMarker(Guid guid)
         {
-            return Ok(await _service.DeleteMarkerAsync(guid));
+            if (await _service.DeleteMarkerAsync(guid))
+            {
+                return Ok();
+            }
+            return NotFound();
+            
         }
 
         [HttpPost("CreateMarker")]

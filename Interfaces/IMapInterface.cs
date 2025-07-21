@@ -1,13 +1,13 @@
 namespace Interfaces
 {
-    public interface IMapInterface
+    public interface IMapInterface<T,G> where G : notnull
     {
-        public Task<List<MarkerData>> GetMarksAsync();
+        public Task<Dictionary<G,T>> GetMarksAsync();
 
-        public Task<Guid> CreateMarkerAsync(MarkerData data);
+        public Task<G> CreateMarkerAsync(T data);
 
-        public Task<bool> DeleteMarkerAsync(Guid guid);
+        public Task<bool> DeleteMarkerAsync(G guid);
 
-        public Task<bool> UpdateMarkerAsync(Guid guid, MarkerData data);
+        public Task<bool> UpdateMarkerAsync(T data);
     }
 }
