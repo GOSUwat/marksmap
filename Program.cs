@@ -4,7 +4,6 @@ using Services;
 var builder = WebApplication.CreateBuilder();
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<NoDBMakerList>();
 builder.Services.AddScoped<IMapInterface, MapService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

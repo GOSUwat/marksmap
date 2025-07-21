@@ -14,8 +14,8 @@ namespace Controllers.MapControllers
             _service = controller;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<MarkerData>>> Get()
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<List<MarkerData>>> GetAll()
         {
             List<MarkerData> markers = await _service.GetMarksAsync();
             if (markers.Count == 0)
@@ -25,13 +25,13 @@ namespace Controllers.MapControllers
             return markers;
         }
 
-        [HttpDelete("{guid}")]
+        [HttpDelete("Remove/{guid}")]
         public async Task<ActionResult> RemoveMarker(Guid guid)
         {
             return Ok(await _service.DeleteMarkerAsync(guid));
         }
 
-        [HttpPost]
+        [HttpPost("CreateMarker")]
         public async Task<ActionResult<Guid>> CreateMarker(MarkerData marker)
         {
             return await _service.CreateMarkerAsync(marker);

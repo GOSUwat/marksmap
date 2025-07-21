@@ -4,8 +4,8 @@ namespace Services
 {
     public class MapService : IMapInterface
     {
-        private readonly NoDBMakerList _markers;
-        public MapService(NoDBMakerList markers)
+        private readonly IDataInterface<MarkerData,Guid> _markers;
+        public MapService(IDataInterface<MarkerData, Guid> markers)
         {
             _markers = markers;
         }
@@ -24,12 +24,12 @@ namespace Services
 
         public async Task<List<MarkerData>> GetMarksAsync()
         {
-            return await _markers.GetList();
+            return await _markers.GetValuesList();
         }
 
-        public Task<bool> UpdateMarkerAsync(int id, MarkerData data)
+        public async Task<bool> UpdateMarkerAsync(Guid guid, MarkerData data)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

@@ -8,6 +8,6 @@ namespace Interfaces
 
         public Task<bool> DeleteMarkerAsync(Guid guid);
 
-        public Task<bool> UpdateMarkerAsync(int id, MarkerData data);
+        public Task<bool> UpdateMarkerAsync(Guid guid, MarkerData data);
     }
 }
